@@ -1,1 +1,1 @@
-pritn('my test commit')
+print('my test commit')
