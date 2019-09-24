@@ -47,6 +47,7 @@ def insertion_sort(nums):
 if __name__ == "__main__":
     #random_list_of_nums = [5, 2, 1, 8, 4]
     random_list_of_nums = [5, 1, 2, 8, 4] 
+    # end_list_of_nums = 
     print('Исходный массив: ', random_list_of_nums) 
     strat0 = Strategy()
     strat1 = Strategy(selection_sort)
