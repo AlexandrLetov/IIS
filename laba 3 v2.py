@@ -62,7 +62,7 @@ class GraphIterator:
             for n in graph[self.next]:
                 dfs(graph, n, self.visited)
         if self.i > len(self.visited) - 1:
-            raise StopIteration()
+            return None #raise StopIteration()
         self.next = self.visited[self.i]
         return self.next
 
@@ -86,9 +86,17 @@ feed = feed()
 feed.register(feeder('First'))
 feed.register(feeder('Second'))
 print('Проход:')
-for i in iter:
-    print(i)
-    if i == "B":
+
+current = iter.current
+while current != None:
+    print(iter.current())
+    if current == "B":
         feed.add_news('посещена вершина B')
-    if i == "E":
-        feed.add_news('посещена вершина E')
+    current = iter.__next__()
+
+# for i in iter:
+#     print(i)
+#     if i == "B":
+#         feed.add_news('посещена вершина B')
+#     if i == "E":
+#         feed.add_news('посещена вершина E')
