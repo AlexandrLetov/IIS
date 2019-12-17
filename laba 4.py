@@ -36,7 +36,7 @@ class Alert():
         self.text = None
 
     def __str__(self):
-        return '{}  {}'.format(self._type, self.text)
+        return f"{self._type} {self.text}"
 
 
 class AbstractBuilder():

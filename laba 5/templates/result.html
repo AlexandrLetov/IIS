@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Заголовок</title>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h2>Резульат поиска</h2>
+            </div>
+        </header>
+        <div class="results">
+            {% if result%}
+                {{result}}<br>
+            {% else %}
+                <p>Неизвестная ошибка</p>
+            {% endif %}
+        </div>
+    </body>
+</html> 
