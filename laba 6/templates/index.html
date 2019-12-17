@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Main</title>
+        <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+                crossorigin="anonymous"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+                integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+        <script type="text/javascript" charset="utf-8">
+            $(document).ready(function ()
+            {
+                namespace = '';
+                var socket = io(namespace);
+
+                socket.on('delete_response', function (msg)
+                {
+                    $('#log').append($('<div/>').text(msg.data).html());
+                    setTimeout(del, 3000);
+                });
+
+                function del()
+                {
+                    $('.delete').remove();
+                }
+
+                $('form#broadcast').submit(function ()
+                {
+                    socket.emit('broadcast_event', {data: $('#id_note').val(), data2: $('#note').val()});
+                    var frm = document.getElementsByName('broadcast')[0];
+                    frm.reset();  // Reset all form data
+                    return false;
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <form name="broadcast" id="broadcast" method="POST" action="#">
+            №: <input type="text" name="id_note" id="id_note" placeholder="№"><br>
+            Заметка: <input type="text" name="note" id="note" placeholder="Заметка"><br>
+            <input type="submit" value="Сохранить" onclick="submitForm()">
+        </form>
+        </br>
+        <form action="/view" method="POST">
+            Просмотр по номеру:<br>
+            <input type="text" name="id"><br>
+            <input type="submit" value="Посмотреть"/>
+        </form>
+        </br>
+        <form action="/view_all" method="POST">
+            Посмотреть все заметки:<br>
+            <input type="submit" value="Посмотреть все"/>
+        </form>
+    </body>
+</html>
