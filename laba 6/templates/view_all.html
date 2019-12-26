@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Просмотр заметок</title>
-        <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        <title>Просмотр номеров</title> <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
                 crossorigin="anonymous"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
                 integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
@@ -33,7 +32,7 @@
                 socket.on('response', function (msg)
                 {
                     var test = msg.id;
-                    $(".log").append("<div id ='" + test +"'>"+ msg.id + " : " + msg.data +"<input type='submit' value='Удалить заметку' onclick='getdet(this)' id="+ msg.id + "><br><br></div>" );
+                    $(".log").append("<div id ='" + test +"'>"+ msg.id + " : " + msg.data +"<input type='submit' value='Удалить номер' onclick='getdet(this)' id="+ msg.id + "><br><br></div>" );
                 });
             });
             function getdet(obj)
@@ -45,12 +44,12 @@
     </head>
     <body>
         <header>
-            <h1>Страница просмотра заметок</h1>
+            <h1>Страница просмотра номеров</h1>
         </header>
         <form name="delete-note" id="delete-note" method="POST" action="#">
             {% for view in v %}
             <h3 id={{view}}>{{view}}: {{v[view]}}
-                <input type="submit" id={{view}} onclick="getdet(this)" value="Удалить заметку">
+                <input type="submit" id={{view}} onclick="getdet(this)" value="Номер">
             </h3>
             {% endfor %}
             <h3 style="color:blue;" class="log"></h3>
