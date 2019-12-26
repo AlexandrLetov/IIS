@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Просмотр номеров</title> <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+                crossorigin="anonymous"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+                integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+        <script type="text/javascript" charset="utf-8">
+            $(document).ready(function ()
+            {
+                namespace = '';
+                var socket = io(namespace);
+
+                socket.on('connect', function ()
+                {
+                    socket.emit('my_event', {data: 'Connected!'});
+                });
+
+                socket.on('delete_response', function (msg)
+                {
+                    var id_note = msg.data;
+                    var elem = document.getElementById(id_note);
+                    elem.remove()
+                });
+
+                $('form#delete-note').submit(function ()
+                {
+                    socket.emit('delete_item', {data: (window.storage.Globaltest2)});
+                    return false;
+                });
+
+                socket.on('response', function (msg)
+                {
+                    var test = msg.id;
+                    $(".log").append("<div id ='" + test +"'>"+ msg.id + " : " + msg.data +"<input type='submit' value='Удалить номер' onclick='getdet(this)' id="+ msg.id + "><br><br></div>" );
+                });
+            });
+            function getdet(obj)
+            {
+                window.storage = {};
+                window.storage.Globaltest2 = (obj.id);
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>Страница просмотра номеров</h1>
+        </header>
+        <form name="delete-note" id="delete-note" method="POST" action="#">
+            {% for view in v %}
+            <h3 id={{view}}>{{view}}: {{v[view]}}
+                <input type="submit" id={{view}} onclick="getdet(this)" value="Номер">
+            </h3>
+            {% endfor %}
+            <h3 style="color:blue;" class="log"></h3>
+        </form>
+        <div class="results">
+            <form action="/">
+                <p><input type="submit" value="Вернуться на главную"></p>
+            </form>
+        </div>
+    </body>
+</html>
